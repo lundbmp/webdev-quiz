@@ -11,12 +11,12 @@ header div {
     background-color: antiquewhite;
 }
 
-.high-score {
+#high-score {
     font-size: 30px;
     padding-left: 1em;
 }
 
-.timer {
+#timer {
     font-size: 30px;
     padding-right: 2em;
 }
