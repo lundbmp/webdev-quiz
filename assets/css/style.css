@@ -1,0 +1,49 @@
+header {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background-color: lightgray;
+}
+
+header div {
+    background-color: antiquewhite;
+}
+
+.high-score {
+    font-size: 30px;
+    padding-left: 1em;
+}
+
+.timer {
+    font-size: 30px;
+    padding-right: 2em;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    align-items: center;
+    height: 700px;
+    background-color: lightblue;
+}
+
+main h1 {
+    padding-top: 2.5em;
+    width: 50%;
+    text-align: center;
+}
+
+.answer-form-container {
+    background-color: lightcoral;
+    width: 50%;
+    height: 400px;
+}
+
+.answer-response {
+    background-color: lightgreen;
+    width: 50%;
+    height: 50px;
+}
