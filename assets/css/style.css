@@ -37,13 +37,41 @@ main h1 {
 }
 
 .answer-form-container {
+    display: flex;
+    flex-direction: column;
     background-color: lightcoral;
+    align-items: center;
     width: 50%;
     height: 400px;
 }
 
+.answer-form-container p {
+    font-size: 24px;
+    text-align: center;
+}
+
+.answer-form-container .btn {
+    background-color: mediumpurple;
+    border-radius: 15%;
+    font-size: 24px;
+    color: white;
+    margin: .25em 0 .25em 0;
+}
+
+.answer-form-container .btn:hover {
+    background-color:#dcd0ff;
+    color: black;
+}
+
 .answer-response {
+    display: flex;
     background-color: lightgreen;
     width: 50%;
     height: 50px;
+    align-items: center;
+}
+
+.answer-response p {
+    padding-left: 2em;
+    font-size: 24px;
 }
