@@ -36,6 +36,7 @@ let questionArray = [{
     answer: "console.log"
 }];
 
+
 let testTimer = setInterval(function() {
     timeCount--;
     document.getElementById("timer").textContent = "Timer: " + timeCount;
@@ -46,3 +47,42 @@ let testTimer = setInterval(function() {
     }
 }, 1000);
 
+
+// start quiz function
+function startQuiz() {
+    // initially set up the buttons
+    let containerEl = document.getElementById("answer-form-container");
+    for(let element = 1; element < 4; element++) {
+        let buttonEl = document.createElement("button");
+
+        buttonEl.id = "btn" + element;
+        buttonEl.className = "btn";
+        buttonEl.textContent = "this is a test";
+
+        containerEl.appendChild(buttonEl);
+
+    }
+
+    displayQustion(questionArray[1]);
+    
+
+}
+
+
+// function to display object
+function displayQustion(questionObj) {
+    document.getElementById("container-text").textContent = questionObj.question;
+    document.getElementById("btn0").textContent = questionObj.a1
+    document.getElementById("btn1").textContent = questionObj.a2
+    document.getElementById("btn2").textContent = questionObj.a3
+    document.getElementById("btn3").textContent = questionObj.a4
+}
+
+
+function deleteButtons(containerEl) {
+    for(let index = 0; index < 3; index++) {
+        containerEl.removeChild(containerEl.lastChild);
+    }
+}
+
+startQuiz();

@@ -36,7 +36,7 @@ main h1 {
     text-align: center;
 }
 
-.answer-form-container {
+#answer-form-container {
     display: flex;
     flex-direction: column;
     background-color: lightcoral;
@@ -45,12 +45,12 @@ main h1 {
     height: 400px;
 }
 
-.answer-form-container p {
+#answer-form-container p {
     font-size: 24px;
     text-align: center;
 }
 
-.answer-form-container .btn {
+#answer-form-container .btn {
     background-color: mediumpurple;
     border-radius: 15%;
     font-size: 24px;
@@ -58,7 +58,7 @@ main h1 {
     margin: .25em 0 .25em 0;
 }
 
-.answer-form-container .btn:hover {
+#answer-form-container .btn:hover {
     background-color:#dcd0ff;
     color: black;
 }
