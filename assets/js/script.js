@@ -1,4 +1,6 @@
-let timeCount = 60;
+let timeCount = 100;
+let questionCount = 0;
+
 let questionArray = [{
     question: "What is not a datatype in javascript?",
     a1: "float",
@@ -50,6 +52,9 @@ let testTimer = setInterval(function() {
 
 // start quiz function
 function startQuiz() {
+    questionCount = 0;
+
+
     // initially set up the buttons
     let containerEl = document.getElementById("answer-form-container");
     for(let element = 1; element < 4; element++) {
@@ -57,17 +62,45 @@ function startQuiz() {
 
         buttonEl.id = "btn" + element;
         buttonEl.className = "btn";
-        buttonEl.textContent = "this is a test";
 
         containerEl.appendChild(buttonEl);
 
     }
-
-    displayQustion(questionArray[1]);
-    
-
+    displayQustion(questionArray[questionCounter()]);
 }
 
+document.getElementById("answer-form-container").addEventListener("click", function(event) {
+    let isButton = event.target.textContent; 
+    let responseEl = document.getElementById("answer-response");
+    if(isButton === "Start") {
+        startQuiz();
+    } else if (checkAnswer(isButton)) {
+        responseEl.textContent = "correct!";
+        increaseCounter();
+        displayQustion(questionArray[questionCounter()]);
+    } else if (!checkAnswer(isButton)) { 
+        responseEl.textContent = "incorrect!";
+        increaseCounter();
+        subtractScore();
+        displayQustion(questionArray[questionCounter()]);
+    }
+});
+
+function questionCounter() {
+    return questionCount;
+}
+
+function increaseCounter() {
+    questionCount++;
+}
+
+function subtractScore() {
+    timeCount -= 10;
+}
+
+function checkAnswer(isButton) {
+    return isButton === questionArray[questionCount].answer;
+}
 
 // function to display object
 function displayQustion(questionObj) {
@@ -78,6 +111,9 @@ function displayQustion(questionObj) {
     document.getElementById("btn3").textContent = questionObj.a4
 }
 
+function endQuiz() {
+    
+}
 
 function deleteButtons(containerEl) {
     for(let index = 0; index < 3; index++) {
@@ -85,4 +121,3 @@ function deleteButtons(containerEl) {
     }
 }
 
-startQuiz();
