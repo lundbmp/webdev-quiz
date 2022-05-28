@@ -1,5 +1,8 @@
 let timeCount = 100;
 let questionCount = 0;
+var testTimer;
+
+let highScore = [];
 
 let questionArray = [{
     question: "What is not a datatype in javascript?",
@@ -39,20 +42,12 @@ let questionArray = [{
 }];
 
 
-let testTimer = setInterval(function() {
-    timeCount--;
-    document.getElementById("timer").textContent = "Timer: " + timeCount;
-    if(timeCount === 0) {
-        document.getElementById("timer").textContent = "Timer: 0";
-        clearInterval(testTimer);
-        // additional logic will go here to kill the quiz
-    }
-}, 1000);
 
 
 // start quiz function
 function startQuiz() {
     questionCount = 0;
+    timeCount = 100;
 
 
     // initially set up the buttons
@@ -67,23 +62,47 @@ function startQuiz() {
 
     }
     displayQustion(questionArray[questionCounter()]);
+
+    testTimer = setInterval(function() {
+        timeCount--;
+        document.getElementById("timer").textContent = "Timer: " + timeCount;
+        if(timeCount === 0) {
+            document.getElementById("timer").textContent = "Timer: 0";
+            clearInterval(testTimer);
+            // additional logic will go here to kill the quiz
+        }
+    }, 1000);
+
 }
 
 document.getElementById("answer-form-container").addEventListener("click", function(event) {
     let isButton = event.target.textContent; 
     let responseEl = document.getElementById("answer-response");
-    if(isButton === "Start") {
-        startQuiz();
-    } else if (checkAnswer(isButton)) {
-        responseEl.textContent = "correct!";
-        increaseCounter();
-        displayQustion(questionArray[questionCounter()]);
-    } else if (!checkAnswer(isButton)) { 
-        responseEl.textContent = "incorrect!";
-        increaseCounter();
-        subtractScore();
-        displayQustion(questionArray[questionCounter()]);
+
+    if(event.target.className === "btn") {
+        if(isButton === "Start") {
+            startQuiz();
+        } else if (checkAnswer(isButton)) {
+            responseEl.textContent = "correct!";
+            increaseCounter();
+            if(questionCounter() === questionArray.length) { 
+                endQuiz(); 
+            } else {
+                displayQustion(questionArray[questionCounter()]);
+            }
+        } else if (!checkAnswer(isButton)) { 
+            responseEl.textContent = "incorrect!";
+            increaseCounter();
+            subtractScore();
+            if(questionCounter() === questionArray.length) { 
+                endQuiz(); 
+            } else {
+                displayQustion(questionArray[questionCounter()]);
+            }
+        }
     }
+
+
 });
 
 function questionCounter() {
@@ -112,11 +131,43 @@ function displayQustion(questionObj) {
 }
 
 function endQuiz() {
+    let formContainerEl = document.getElementById("answer-form-container");
+    let textContainerEl = document.getElementById("container-text");
+    let initialsFormEl = document.createElement("FORM");
+    let inputFormEl = document.createElement("INPUT");
+    let formButtonEl = document.createElement("BUTTON");
+
+    clearInterval(testTimer); 
+    deleteButtons(formContainerEl);
+
+    textContainerEl.textContent = "You finished with a score of: " + timeCount;
+    initialsFormEl.setAttribute("id", "my-form");
+    inputFormEl.setAttribute("type", "text");
+    inputFormEl.setAttribute("value", "initials");
+    formButtonEl.setAttribute("id", "form-btn");
+    formButtonEl.setAttribute("class", "btn");
+    formButtonEl.textContent = "Submit";
+
+    formContainerEl.appendChild(initialsFormEl);
+    document.getElementById("my-form").appendChild(inputFormEl);
+    document.getElementById("my-form").appendChild(formButtonEl);
+
+}
+
+function saveHighscore() {
+
+}
+
+function loadHighscore() {
+    highScore = JSON.parse(localStorage.getItem('highScores'));
+}
+
+function clearHighscore() {
     
 }
 
 function deleteButtons(containerEl) {
-    for(let index = 0; index < 3; index++) {
+    for(let index = 0; index < 5; index++) {
         containerEl.removeChild(containerEl.lastChild);
     }
 }
