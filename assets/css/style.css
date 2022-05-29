@@ -4,16 +4,21 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 100px;
-    background-color: lightgray;
+    background-color: white;
 }
 
 header div {
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 #high-score {
     font-size: 30px;
     padding-left: 1em;
+}
+
+#high-score a {
+    color: black;
+    text-decoration: none;
 }
 
 #timer {
@@ -27,7 +32,7 @@ main {
     flex-basis: 100%;
     align-items: center;
     height: 700px;
-    background-color: lightblue;
+    background-color: white;
 }
 
 main h1 {
@@ -39,7 +44,7 @@ main h1 {
 #answer-form-container {
     display: flex;
     flex-direction: column;
-    background-color: lightcoral;
+    background-color: white;
     align-items: center;
     width: 50%;
     height: 400px;

@@ -48,6 +48,7 @@ let questionArray = [{
 function startQuiz() {
     questionCount = 0;
     timeCount = 100;
+    loadHighscore();
 
 
     // initially set up the buttons
@@ -82,6 +83,12 @@ document.getElementById("answer-form-container").addEventListener("click", funct
     if(event.target.className === "btn") {
         if(isButton === "Start") {
             startQuiz();
+        } else if (isButton === "Submit") {
+            let userInitials = document.getElementById("input-value").value;
+            addHighScore(timeCount, userInitials);
+            saveHighscore();
+            location.replace("../highscores.html");
+            return false;
         } else if (checkAnswer(isButton)) {
             responseEl.textContent = "correct!";
             increaseCounter();
@@ -143,7 +150,8 @@ function endQuiz() {
     textContainerEl.textContent = "You finished with a score of: " + timeCount;
     initialsFormEl.setAttribute("id", "my-form");
     inputFormEl.setAttribute("type", "text");
-    inputFormEl.setAttribute("value", "initials");
+    inputFormEl.setAttribute("value", "");
+    inputFormEl.setAttribute("id", "input-value");
     formButtonEl.setAttribute("id", "form-btn");
     formButtonEl.setAttribute("class", "btn");
     formButtonEl.textContent = "Submit";
@@ -155,9 +163,6 @@ function endQuiz() {
 }
 
 function saveHighscore() {
-    highScoreArr.sort(function(a,b) {
-        return b.score - a.score;
-    });
     localStorage.setItem("highScores", JSON.stringify(highScoreArr)); 
 }
 
@@ -180,8 +185,10 @@ function addHighScore(time, initials) {
     };
     
     highScoreArr.push(userObj);
-    
-    
+
+    highScoreArr.sort(function(a,b) {
+        return b.score - a.score;
+    });
 }
 
 function deleteButtons(containerEl) {
@@ -190,8 +197,3 @@ function deleteButtons(containerEl) {
     }
 }
 
-loadHighscore();
-addHighScore(timeCount, "mpl");
-saveHighscore();
-
-console.log(highScoreArr);
