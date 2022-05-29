@@ -2,7 +2,7 @@ let timeCount = 100;
 let questionCount = 0;
 var testTimer;
 
-let highScore = [];
+let highScoreArr = [];
 
 let questionArray = [{
     question: "What is not a datatype in javascript?",
@@ -155,14 +155,32 @@ function endQuiz() {
 }
 
 function saveHighscore() {
-
+    highScoreArr.sort(function(a,b) {
+        return b.score - a.score;
+    });
+    localStorage.setItem("highScores", JSON.stringify(highScoreArr)); 
 }
 
 function loadHighscore() {
-    highScore = JSON.parse(localStorage.getItem('highScores'));
+    let localHighScore = JSON.parse(localStorage.getItem('highScores'));
+
+    if(localHighScore != null) {
+        highScoreArr.concat(localHighScore);
+    }
 }
 
 function clearHighscore() {
+    localStorage.clear();
+}
+
+function addHighScore(time, initials) {
+    let userObj = {
+        score: time,
+        user: initials
+    };
+    
+    highScoreArr.push(userObj);
+    
     
 }
 
@@ -172,3 +190,8 @@ function deleteButtons(containerEl) {
     }
 }
 
+loadHighscore();
+addHighScore(timeCount, "mpl");
+saveHighscore();
+
+console.log(highScoreArr);
